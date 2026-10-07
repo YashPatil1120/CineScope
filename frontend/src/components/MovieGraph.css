@@ -1,0 +1,578 @@
+/* =========================================================
+   CINESCOPE KNOWLEDGE GRAPH
+   ========================================================= */
+
+.movie-graph {
+    width: 100%;
+    margin-top: 50px;
+
+    overflow: hidden;
+
+    border: 1px solid #202027;
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(110, 75, 190, 0.08),
+            transparent 45%
+        ),
+        #09090d;
+
+    /* Keep the graph visually isolated from surrounding content */
+    contain: layout paint;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.movie-graph-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 28px 30px;
+
+    border-bottom: 1px solid #202027;
+}
+
+.graph-kicker {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #9a76ef;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+}
+
+.movie-graph-header h2 {
+    margin: 0;
+
+    color: #f4f4f6;
+
+    font-size: 24px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.movie-graph-header p {
+    max-width: 650px;
+
+    margin: 8px 0 0;
+
+    color: #777783;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GRAPH STATS
+   ========================================================= */
+
+.graph-stats {
+    display: flex;
+    flex-shrink: 0;
+
+    gap: 28px;
+}
+
+.graph-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.graph-stat strong {
+    color: #eeeeef;
+
+    font-size: 22px;
+    line-height: 1;
+
+    font-weight: 750;
+}
+
+.graph-stat span {
+    margin-top: 5px;
+
+    color: #62626c;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   LEGEND
+   ========================================================= */
+
+.graph-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    padding: 13px 30px;
+
+    border-bottom: 1px solid #17171d;
+
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #74747e;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+.legend-movie {
+    background: #b18cff;
+}
+
+.legend-actor {
+    background: #62b0ff;
+}
+
+.legend-director {
+    background: #ff9b7a;
+}
+
+.legend-genre {
+    background: #7edc91;
+}
+
+.legend-related {
+    background: #d19cff;
+}
+
+
+/* =========================================================
+   INTELLIGENT RELATIONSHIP CARD
+   ========================================================= */
+
+.graph-relationship-card {
+    margin: 14px 20px 0;
+    padding: 14px 16px;
+
+    border: 1px solid rgba(177, 140, 255, 0.20);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(177, 140, 255, 0.065),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    /* Lighter than previous large shadow */
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12);
+
+    animation: relationshipCardIn 0.14s ease-out;
+}
+
+.relationship-card-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.relationship-card-kicker {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #a994cf;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+}
+
+.relationship-card-main h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.relationship-strength {
+    display: inline-block;
+
+    margin-top: 4px;
+
+    color: #a9a9b8;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   RELATIONSHIP SCORE
+   ========================================================= */
+
+.relationship-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 68px;
+
+    padding: 7px 10px;
+
+    border: 1px solid rgba(177, 140, 255, 0.22);
+    border-radius: 9px;
+
+    background: rgba(177, 140, 255, 0.06);
+}
+
+.relationship-score strong {
+    color: #d6c7f5;
+
+    font-size: 20px;
+    line-height: 1;
+}
+
+.relationship-score span {
+    margin-top: 4px;
+
+    color: #8f8b9e;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   RELATIONSHIP REASONS
+   ========================================================= */
+
+.relationship-reasons {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin-top: 11px;
+}
+
+.relationship-reason {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: #bdbac7;
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   GRAPH CANVAS
+   ========================================================= */
+
+.movie-graph-canvas {
+    position: relative;
+
+    width: 100%;
+    height: 620px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(115, 82, 190, 0.045),
+            transparent 52%
+        );
+
+    /* Prevent unnecessary browser layout work */
+    contain: strict;
+}
+
+
+/*
+ * Subtle graph grid.
+ *
+ * Kept lightweight because this sits behind
+ * a continuously-rendered canvas.
+ */
+
+.movie-graph-canvas::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.08;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.022) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.022) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+}
+
+
+/*
+ * ForceGraph canvas.
+ */
+
+.movie-graph-canvas canvas {
+    display: block;
+
+    cursor: grab;
+
+    outline: none;
+}
+
+.movie-graph-canvas canvas:active {
+    cursor: grabbing;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.graph-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    min-height: 42px;
+
+    padding: 10px 20px;
+
+    border-top: 1px solid #17171d;
+
+    color: #555560;
+
+    font-size: 10px;
+}
+
+.graph-footer-separator {
+    color: #36363e;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.movie-graph-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 300px;
+
+    gap: 12px;
+
+    color: #777783;
+
+    font-size: 13px;
+}
+
+.graph-spinner {
+    width: 22px;
+    height: 22px;
+
+    flex-shrink: 0;
+
+    border: 2px solid #292932;
+    border-top-color: #9672ec;
+
+    border-radius: 50%;
+
+    animation:
+        graph-spin
+        0.8s
+        linear
+        infinite;
+}
+
+@keyframes graph-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.movie-graph-error {
+    color: #b98282;
+}
+
+
+/* =========================================================
+   RELATIONSHIP CARD ANIMATION
+   ========================================================= */
+
+@keyframes relationshipCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .movie-graph-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .graph-stats {
+        width: 100%;
+
+        justify-content: flex-start;
+    }
+
+    .graph-stat {
+        align-items: flex-start;
+    }
+
+    .movie-graph-canvas {
+        height: 520px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .graph-relationship-card {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .relationship-card-main {
+        gap: 12px;
+    }
+
+    .relationship-card-main h3 {
+        font-size: 16px;
+    }
+
+    .relationship-score {
+        min-width: 62px;
+        padding: 7px 9px;
+    }
+
+    .relationship-score strong {
+        font-size: 18px;
+    }
+
+    .relationship-reasons {
+        gap: 5px;
+    }
+
+    .relationship-reason {
+        padding: 4px 8px;
+
+        font-size: 9px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .movie-graph {
+        margin-top: 35px;
+
+        border-radius: 14px;
+    }
+
+    .movie-graph-header {
+        padding: 22px;
+    }
+
+    .movie-graph-header h2 {
+        font-size: 21px;
+    }
+
+    .movie-graph-header p {
+        font-size: 12px;
+    }
+
+    .graph-legend {
+        gap: 12px;
+
+        padding: 12px 22px;
+    }
+
+    .movie-graph-canvas {
+        height: 480px;
+    }
+
+    .graph-footer {
+        padding: 10px 15px;
+
+        text-align: center;
+    }
+}
