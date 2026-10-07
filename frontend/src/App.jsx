@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Analytics from "./pages/Analytics";
 import Analyst from "./pages/Analyst";
 import Discover from "./pages/Discover";
+import Footer from "./components/Footer";
 
 function App() {
     return (
