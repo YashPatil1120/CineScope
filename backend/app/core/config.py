@@ -1,10 +1,12 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+ENV_FILE = os.getenv("CINESCOPE_ENV_FILE", ".env")
 
-load_dotenv()
-
+load_dotenv(BASE_DIR / ENV_FILE)
 
 # ============================================================
 # DATABASE

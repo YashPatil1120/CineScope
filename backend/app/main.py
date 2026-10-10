@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
@@ -21,23 +22,31 @@ app = FastAPI(
 )
 
 
+
+frontend_url = os.getenv("FRONTEND_URL", "").rstrip("/")
+
+allowed_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
+
 app.include_router(hybrid_search_router)
 app.include_router(semantic_search_router)
 app.include_router(graph_router)
 app.include_router(analyst_router)
-app.include_router(movies_router)
 app.include_router(movies_router)
 app.include_router(auth_router)
 app.include_router(watchlist_router)
