@@ -1,620 +1,492 @@
+::: {align="center"}
 # 🎬 CineScope
 
-### Intelligent Movie Discovery, Recommendation & Analysis Platform
+### Discover something worth watching.
 
-CineScope is a full-stack movie discovery platform designed to go beyond traditional keyword-based movie websites.
+**An intelligent movie discovery, recommendation, and personal
+film-tracking platform.**
 
-It combines **hybrid search, semantic embeddings, personalized recommendations, user analytics, a movie knowledge graph, and a grounded AI Movie Analyst** into a single platform.
+Explore movies by title, actor, director, genre, or mood. Build a
+watchlist, rate films, understand your taste, and explore connections
+between movies.
 
-Instead of simply searching for a movie, CineScope allows users to explore movies based on **meaning, genres, actors, directors, relationships, and personal viewing behavior**.
+![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react&logoColor=black)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20pgvector-4169E1?logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/Language-Python-3776AB?logo=python&logoColor=white)
 
----
+**[View the repository](https://github.com/YashPatil1120/CineScope)**
+:::
 
-## ✨ Highlights
+------------------------------------------------------------------------
 
-- 🔎 **Hybrid Movie Search**
-  - Keyword/title search
-  - Semantic search
-  - Genre-aware search
-  - Actor and director filtering
-  - Natural-language movie queries
+## ✨ Overview
 
-- 🧠 **Semantic Search**
-  - Sentence Transformer embeddings
-  - 384-dimensional movie vectors
-  - PostgreSQL + pgvector
-  - Cosine similarity retrieval
+CineScope is a full-stack movie discovery platform designed to make
+finding your next film more personal and informative than browsing a
+list of titles.
 
-- 🎯 **Personalized Recommendations**
-  - User movie interactions
-  - Watched movies
-  - Ratings
-  - Genres
-  - Actors
-  - Directors
-  - Recommendation explanations
+It brings together movie metadata, hybrid search, personalized
+recommendations, watch tracking, taste analytics, semantic similarity,
+an interactive knowledge graph, and an AI-powered movie analyst in one
+cinematic interface.
 
-- 🕸️ **Movie Knowledge Graph**
-  - Movie ↔ Actor
-  - Movie ↔ Director
-  - Movie ↔ Genre
-  - Movie ↔ Related Movie
-  - Interactive graph visualization
-  - Intelligent relationship scoring
+CineScope helps answer questions such as:
 
-- 📊 **Personal Analytics**
-  - Movies watched
-  - Movies rated
-  - Average rating
-  - Watchlist statistics
-  - Favorite genres
-  - Favorite actors
-  - Favorite directors
-  - Recently watched movies
-  - Rating distribution
+-   *What should I watch if I want a psychological sci-fi film?*
+-   *Which movies match my interests and ratings?*
+-   *What patterns appear in my movie taste?*
+-   *How are a movie, its cast, director, genres, and related films
+    connected?*
+-   *Why might a particular movie be a good recommendation for me?*
 
-- 🤖 **AI Movie Analyst**
-  - Natural-language movie questions
-  - User-aware context
-  - Movie metadata retrieval
-  - Semantic retrieval
-  - Knowledge graph context
-  - Local LLM inference through Ollama
-  - Grounded responses based on CineScope data
+The application uses a dark, cinema-inspired interface with movie
+artwork, recommendation explanations, and dedicated spaces for
+discovery, collection management, analytics, and AI-assisted
+exploration.
 
-- 🔐 **Authentication**
-  - User registration
-  - Secure password hashing
-  - JWT authentication
-  - Protected user-specific APIs
+## 🌟 Features
 
-- 🎨 **Cinematic UI**
-  - React + Vite
-  - Responsive movie browsing
-  - Movie cards
-  - Discover page
-  - Movie details
-  - Interactive knowledge graph
-  - Analytics dashboard
-  - AI Analyst interface
+### 🔎 Hybrid Movie Search
 
----
+Search beyond exact titles with queries involving movies, actors,
+directors, genres, and natural-language themes or moods. CineScope
+combines metadata-oriented retrieval with a semantic-search layer
+powered by Sentence Transformers. Movie embeddings are stored in
+PostgreSQL using pgvector.
 
-# 🏗️ System Architecture
+Example queries: - `Interstellar` -
+`Movies directed by Christopher Nolan` - `psychological sci-fi` -
+`dark thrillers` - `movies like Interstellar`
 
-```text
-                         ┌─────────────────────────┐
-                         │        CineScope        │
-                         │      React Frontend     │
-                         └────────────┬────────────┘
-                                      │
-                                      │ REST API
-                                      ▼
-                         ┌─────────────────────────┐
-                         │       FastAPI API       │
-                         │       Application       │
-                         └────────────┬────────────┘
-                                      │
-                ┌─────────────────────┼─────────────────────┐
-                │                     │                     │
-                ▼                     ▼                     ▼
-       ┌────────────────┐    ┌────────────────┐    ┌────────────────┐
-       │ Recommendation │    │ Semantic Search │    │ Knowledge Graph│
-       │    Engine      │    │     Engine     │    │     Engine     │
-       └───────┬────────┘    └───────┬────────┘    └───────┬────────┘
-               │                     │                     │
-               └─────────────────────┼─────────────────────┘
-                                     ▼
-                         ┌─────────────────────────┐
-                         │      PostgreSQL         │
-                         │                         │
-                         │  Movies                 │
-                         │  Users                  │
-                         │  Genres                 │
-                         │  People                 │
-                         │  Credits               │
-                         │  Watchlist              │
-                         │  Interactions           │
-                         │  Vector Embeddings      │
-                         └────────────┬────────────┘
-                                      │
-                                      │ pgvector
-                                      ▼
-                         ┌─────────────────────────┐
-                         │ Sentence Transformers   │
-                         │ all-MiniLM-L6-v2        │
-                         │ 384D Embeddings         │
-                         └─────────────────────────┘
+### 🎯 Personalized Recommendations
 
-                                      │
-                                      ▼
-                         ┌─────────────────────────┐
-                         │      AI Analyst         │
-                         │                         │
-                         │ Query → Context → LLM   │
-                         └────────────┬────────────┘
-                                      │
-                                      ▼
-                         ┌─────────────────────────┐
-                         │        Ollama            │
-                         │       Llama 3.2 3B      │
-                         └─────────────────────────┘
+Discover films using recorded user interactions and available movie
+metadata. Recommendation cards can explain suggestions through signals
+such as genre affinity, shared cast, or director overlap, making results
+more interpretable than an unexplained list.
 
-🔍 How CineScope Search Works
-CineScope uses a hybrid retrieval approach instead of relying on a single search technique.
-Example queries
-Interstellar
+Recommendation quality depends on the amount and quality of a user's
+recorded interactions.
 
-movies directed by Christopher Nolan
+### 🍿 Personal Movie Collection
 
-movies starring Tom Holland
+-   Maintain a watchlist of movies to watch later.
+-   Track movies already watched.
+-   Rate movies on a 1--10 scale.
+-   Review movie artwork, titles, years, and personal ratings in one
+    place.
 
-action movies
+User-specific features require an account and authentication.
 
-lonely astronaut exploring deep space
+### 📊 Taste Analytics
 
-The query is analyzed and routed through the appropriate retrieval strategy.
-Search components
-User Query
-    │
-    ▼
-Query Analysis
-    │
-    ├── Title / Keyword Matching
-    │
-    ├── Genre Matching
-    │
-    ├── Actor Matching
-    │
-    ├── Director Matching
-    │
-    └── Semantic Similarity
-              │
-              ▼
-       Ranked Movie Results
+The analytics dashboard summarizes a user's recorded movie activity: -
+Total movies in the collection. - Number of watched movies. - Average
+personal rating. - Watchlist size. - Rating distribution. - Favorite
+genres. - Frequently appearing actors and directors. - Recently watched
+titles.
 
-The hybrid search system combines textual relevance, semantic similarity, and structured movie metadata.
-🧠 Semantic Search
-CineScope generates embeddings for movie information using:
-sentence-transformers/all-MiniLM-L6-v2
+Analytics reflect recorded activity rather than preferences that have
+not been observed.
 
-Each movie receives a:
-384-dimensional vector
+### 🧠 AI Movie Analyst
 
-These embeddings are stored directly in PostgreSQL using pgvector.
-Semantic queries are converted into the same vector space and compared using cosine distance.
-Movie Description
-       │
-       ▼
-Sentence Transformer
-       │
-       ▼
-384D Embedding
-       │
-       ▼
-PostgreSQL + pgvector
-       │
-       ▼
-Cosine Similarity
-       │
-       ▼
-Semantically Relevant Movies
+Ask natural-language questions about movies, similarities,
+recommendations, and recorded viewing preferences. The local development
+setup uses **Ollama** with **Llama 3.2 (3B)** and contextual movie/user
+information to ground its analysis.
 
-The current CineScope catalog contains:
-599 movies
-599 generated embeddings
+The language model is a separate runtime dependency. A deployment
+environment must provide a compatible inference service or gracefully
+disable this feature. AI-generated answers may be inaccurate and should
+not be treated as guaranteed facts.
 
-🎯 Recommendation Engine
-CineScope includes a personalized recommendation system based on user interactions and movie metadata.
-Recommendation signals include:
-- Watched movies
-- User ratings
-- Genres
-- Actors
-- Directors
-- Movie similarity
-Recommendations can also provide explanations such as:
-You like Science Fiction and Adventure movies
+### 🕸️ Interactive Movie Knowledge Graph
 
-or:
-Featuring actors you have interacted with
+Explore relationships between: - Movies and related movies. - Actors. -
+Directors. - Genres.
 
-or:
-Directed by a director you have interacted with
+Connections are derived from movie metadata and similarity signals,
+helping users explore a film beyond its synopsis.
 
-This makes recommendations more interpretable instead of presenting unexplained movie results.
-🕸️ Knowledge Graph
-CineScope models relationships between movies and their associated entities.
-                    ┌────────────┐
-                    │   Actor    │
-                    └─────┬──────┘
-                          │
-                          │ acted in
-                          ▼
-┌────────────┐      ┌────────────┐      ┌────────────┐
-│   Genre    │─────▶│   Movie    │◀─────│  Director  │
-└────────────┘      └─────┬──────┘      └────────────┘
-                          │
-                          │ related to
-                          ▼
-                    ┌────────────┐
-                    │   Movie    │
-                    └────────────┘
+### 🔐 Authentication and User Data
 
-The graph is visualized interactively in the frontend.
-Intelligent Movie Relationships
-Related movies are ranked using a weighted relationship score:
-45% Semantic Similarity
-25% Genre Similarity
-20% Shared Actors
-10% Same Director
+The backend includes JWT-based authentication and Argon2 password
+hashing. User-specific interactions, watchlists, and ratings are
+associated with authenticated accounts.
 
-This allows CineScope to distinguish between movies that are merely similar by genre and movies that have multiple meaningful connections.
-🤖 AI Movie Analyst
-The AI Analyst allows users to interact with CineScope using natural language.
-Example questions:
-Why should I watch Interstellar?
+### 🎞️ Movie Metadata
 
-What movies are similar to Interstellar?
+CineScope integrates with **The Movie Database (TMDB)** for movie
+metadata and artwork. Required attribution and provider terms must be
+retained.
 
-Why is this movie recommended for me?
+## 🖥️ Product Tour
 
-The important architectural principle is:
-The LLM is not the source of truth.
+  -----------------------------------------------------------------------
+  Section                             Experience
+  ----------------------------------- -----------------------------------
+  **Home**                            Movie discovery, trending titles,
+                                      personalized recommendations, and
+                                      similar movies.
 
-Instead, CineScope retrieves relevant information first.
-User Question
-      │
-      ▼
-Query Analysis
-      │
-      ▼
-Context Retrieval
-      │
-      ├── User Analytics
-      ├── Movie Metadata
-      ├── Genres
-      ├── Cast
-      ├── Directors
-      ├── Semantic Search
-      └── Knowledge Graph
-      │
-      ▼
-Context Builder
-      │
-      ▼
-Prompt Construction
-      │
-      ▼
-Local LLM
-      │
-      ▼
-Grounded Answer
+  **Discover**                        Browse the catalog and search by
+                                      movie, actor, director, genre, or
+                                      mood.
 
-This reduces the risk of the model inventing movie facts and keeps the response grounded in CineScope's retrieved data.
-📊 Personal Analytics
-Authenticated users receive a personalized analytics dashboard.
-Current analytics include:
-- Total movies
-- Watched movies
-- Rated movies
-- Average rating
-- Watchlist count
-- Rating distribution
-- Favorite genres
-- Favorite actors
-- Favorite directors
-- Recently watched movies
-Example:
-                 CineScope Analytics
+  **Movie details**                   View poster, backdrop, synopsis,
+                                      year, rating, runtime, genres,
+                                      director, and cast.
 
-       Movies Watched        5
-       Movies Rated         5
-       Average Rating      7.2
-       Watchlist            6
+  **My Movies**                       Manage the watchlist, watched
+                                      collection, and personal ratings.
 
-🔐 Authentication
-CineScope uses JWT-based authentication.
-Authentication flow:
-Register
-   │
-   ▼
-Password Hashing
-   │
-   ▼
-PostgreSQL
-   │
-   ▼
-Login
-   │
-   ▼
-JWT Access Token
-   │
-   ▼
-Authenticated API Requests
+  **Analytics**                       Review rating distribution,
+                                      favorite genres, actors, directors,
+                                      and collection statistics.
 
-Passwords are securely hashed using Argon2 through pwdlib.
-The frontend stores the access token and automatically attaches it to authenticated API requests.
-🎬 Movie Data
-Movie metadata is sourced from The Movie Database (TMDB).
-The application uses TMDB for information such as:
-- Movie titles
-- Overviews
-- Posters
-- Backdrops
-- Release dates
-- Runtime
-- Ratings
-- Genres
-- Cast
-- Directors
-- Similar movies
-CineScope currently maintains a local catalog of:
-599 movies
+  **AI Analyst**                      Ask natural-language questions
+                                      about movies and personal taste.
 
-This allows most application functionality to operate against the local PostgreSQL database rather than requesting TMDB data for every user interaction.
+  **Knowledge graph**                 Explore links between a film,
+                                      related titles, people, and genres.
+  -----------------------------------------------------------------------
 
+### Screenshots
+
+To keep the README's images visible on GitHub, add your screenshots to a
+repository folder such as `docs/screenshots/`, then embed them using
+relative paths. Suggested gallery:
+
+``` markdown
+![CineScope Home](docs/screenshots/home.png)
+![Discover](docs/screenshots/discover.png)
+![Personalized Recommendations](docs/screenshots/recommendations.png)
+![My Movies](docs/screenshots/my-movies.png)
+![Analytics Dashboard](docs/screenshots/analytics.png)
+![AI Movie Analyst](docs/screenshots/ai-analyst.png)
+![Movie Details and Knowledge Graph](docs/screenshots/movie-details-graph.png)
+```
+
+## 🧰 Tech Stack
+
+  Layer              Technologies
+  ------------------ -----------------------------------------------
+  Frontend           React, Vite, JavaScript, CSS
+  API                Python, FastAPI, Uvicorn
+  Database           PostgreSQL, SQLAlchemy, Alembic
+  Vector search      pgvector, 384-dimensional sentence embeddings
+  Embedding model    Sentence Transformers --- `all-MiniLM-L6-v2`
+  Authentication     JWT, Argon2 password hashing
+  Local AI Analyst   Ollama, Llama 3.2 3B
+  Movie data         TMDB API
+  Developer tools    Git, GitHub, VS Code
+
+## 🏗️ Architecture
+
+``` text
+┌─────────────────────────────────────┐
+│            React + Vite             │
+│ Home · Discover · My Movies         │
+│ Analytics · AI Analyst · Graph      │
+└──────────────────┬──────────────────┘
+                   │ HTTP / JSON
+                   ▼
+┌─────────────────────────────────────┐
+│             FastAPI                 │
+│ Auth · Movie APIs · Search          │
+│ Recommendations · Analytics         │
+│ User interactions · AI integration  │
+└────────────┬────────────────┬───────┘
+             │                │
+             ▼                ▼
+┌────────────────────┐  ┌──────────────────┐
+│ PostgreSQL         │  │ External/local   │
+│ Movie metadata     │  │ services         │
+│ User data          │  │ TMDB API         │
+│ Interactions       │  │ Ollama inference │
+│ pgvector embeddings│  │ (local setup)    │
+└────────────────────┘  └──────────────────┘
+```
+
+### Semantic search flow
+
+1.  Movie metadata is prepared for semantic representation.
+2.  `all-MiniLM-L6-v2` generates 384-dimensional embeddings.
+3.  Embeddings are stored in PostgreSQL through pgvector.
+4.  A search query is encoded and compared with stored representations.
+5.  Semantic similarity complements keyword and metadata-based
+    retrieval.
+
+## 📁 Project Structure
+
+The project is organized into separate frontend and backend
+applications. This is a simplified overview; filenames may evolve as
+development continues.
+
+``` text
 CineScope/
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   ├── analytics.py
-│   │   │   ├── analyst.py
-│   │   │   ├── auth.py
-│   │   │   ├── graph.py
-│   │   │   ├── hybrid_search.py
-│   │   │   ├── movies.py
-│   │   │   ├── movie_interactions.py
-│   │   │   ├── recommendations.py
-│   │   │   ├── semantic_search.py
-│   │   │   └── watchlist.py
-│   │   │
-│   │   ├── core/
-│   │   │   ├── config.py
-│   │   │   ├── dependencies.py
-│   │   │   └── security.py
-│   │   │
-│   │   ├── db/
-│   │   │   ├── database.py
-│   │   │   └── session.py
-│   │   │
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   │   ├── analytics.py
-│   │   │   ├── analyst.py
-│   │   │   ├── analyst_context.py
-│   │   │   ├── embedding.py
-│   │   │   ├── graph.py
-│   │   │   ├── llm.py
-│   │   │   ├── movie_importer.py
-│   │   │   ├── recommendations.py
-│   │   │   ├── semantic_search.py
-│   │   │   └── tmdb.py
-│   │   │
-│   │   └── main.py
-│   │
-│   ├── alembic/
-│   ├── scripts/
-│   ├── requirements.txt
-│   ├── alembic.ini
-│   └── .env
-│
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Footer.jsx
-│   │   │   ├── MovieCard.jsx
-│   │   │   ├── MovieGraph.jsx
-│   │   │   ├── MovieSection.jsx
-│   │   │   └── Navbar.jsx
-│   │   │
-│   │   ├── context/
 │   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Discover.jsx
-│   │   │   ├── MovieDetails.jsx
-│   │   │   ├── MyMovies.jsx
-│   │   │   ├── Analytics.jsx
-│   │   │   ├── Analyst.jsx
-│   │   │   ├── Login.jsx
-│   │   │   └── Register.jsx
-│   │   │
 │   │   ├── services/
-│   │   │   └── api.js
-│   │   │
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── index.css
-│   │
+│   │   └── ...
 │   ├── package.json
 │   └── vite.config.js
-│
-├── .env.example
+├── backend/
+│   ├── app/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── routers/
+│   │   ├── services/
+│   │   └── ...
+│   ├── alembic/
+│   ├── requirements.txt
+│   └── ...
 ├── .gitignore
+├── .env.example
 └── README.md
+```
 
-Local Development Setup
-Prerequisites
-Make sure the following are installed:
-- Python 3.13+
-- Node.js
-- npm
-- PostgreSQL
-- Git
-- Ollama
-- GitHub account
-1. Clone the Repository
+## ⚙️ Run Locally
+
+### Prerequisites
+
+-   Python 3.11+ (or the version supported by the project's
+    dependencies).
+-   Node.js and npm.
+-   PostgreSQL with the **pgvector** extension available.
+-   A TMDB API token.
+-   Ollama and the configured model, if using the local AI Analyst.
+
+> Never commit `.env`, `.env.production`, database URLs, API tokens, or
+> JWT secrets to GitHub.
+
+### 1. Clone the repository
+
+``` bash
 git clone https://github.com/YashPatil1120/CineScope.git
 cd CineScope
+```
 
-2. Backend Setup
-Navigate to the backend:
+### 2. Set up the backend
+
+``` bash
 cd backend
-
-Create a virtual environment:
 python -m venv venv
+```
 
-Activate it on Windows:
+Activate the environment:
+
+**Windows PowerShell**
+
+``` powershell
 .\venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
+
+``` bash
+source venv/bin/activate
+```
 
 Install dependencies:
+
+``` bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
 
-3. Configure Environment Variables
-Create:
-backend/.env
+Create a local `.env` file using `.env.example` as a reference and set
+your own values:
 
-based on:
-.env.example
+``` dotenv
+DATABASE_URL=postgresql+psycopg://USERNAME:PASSWORD@HOST:PORT/DATABASE
+TMDB_API_TOKEN=your_tmdb_api_token
+JWT_SECRET_KEY=replace_with_a_long_random_secret
+```
 
-Example:
-DATABASE_URL=postgresql://username:password@localhost:5432/cinescope
-TMDB_API_TOKEN=your_tmdb_api_token_here
-JWT_SECRET_KEY=your_secure_jwt_secret_here
+Use the database URL format expected by the installed PostgreSQL driver.
+Keep real credentials private.
 
-Never commit the real .env file.
-It is intentionally ignored by Git.
-4. PostgreSQL Setup
-Create a PostgreSQL database named:
-cinescope
+Make sure the database exists and enable pgvector if needed:
 
-Then enable the pgvector extension:
-CREATE EXTENSION vector;
+``` sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
 
-CineScope uses pgvector for storing and querying movie embeddings.
-5. Run Database Migrations
-From:
-backend/
+Run migrations from the backend directory:
 
-run:
+``` bash
 alembic upgrade head
+```
 
-Check the current migration:
-alembic current
+> For an empty database, confirm that the migration history supports a
+> clean installation before migrating. Never run destructive migration
+> commands against a database containing data you need.
 
-6. Start the Backend
-From:
-backend/
+### 3. Start the backend
 
-run:
-uvicorn app.main:app --reload
+From `backend/`, with the virtual environment active:
 
-The API will be available at:
-http://127.0.0.1:8000
+``` bash
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
 
-FastAPI documentation:
-http://127.0.0.1:8000/docs
+Typical local endpoints: - API: `http://127.0.0.1:8000` - Swagger UI:
+`http://127.0.0.1:8000/docs`
 
-7. Frontend Setup
-Open another terminal:
+### 4. Set up the frontend
+
+Open a second terminal:
+
+``` bash
 cd frontend
-
-Install dependencies:
 npm install
+```
+
+The API client defaults to `http://127.0.0.1:8000`. To override it,
+create a frontend `.env` file:
+
+``` dotenv
+VITE_API_BASE_URL=http://127.0.0.1:8000
+```
 
 Start the development server:
+
+``` bash
 npm run dev
+```
 
-The frontend will be available at:
-http://localhost:5173
+Open the local URL printed by Vite, typically `http://localhost:5173`.
 
-🤖 AI Analyst Setup
-CineScope's AI Analyst can run locally using Ollama.
-Install Ollama and download the model:
+### 5. Optional: run the AI Analyst locally
+
+Install [Ollama](https://ollama.com/) and retrieve the configured model:
+
+``` bash
 ollama pull llama3.2:3b
+ollama serve
+```
 
-Make sure Ollama is running.
-CineScope communicates with:
-http://localhost:11434
+If Ollama is already running as a background service, you may not need
+to start it manually. The backend must be configured to reach the Ollama
+endpoint. A cloud host without an inference service will not
+automatically support this feature.
 
-The backend uses:
-llama3.2:3b
+## 🔑 Configuration
 
-for local AI-generated explanations.
-The AI Analyst retrieves CineScope context before sending the prompt to the model.
-🧮 Generating Movie Embeddings
-CineScope includes a script for generating movie embeddings.
-From the backend directory:
-python scripts/generate_movie_embeddings.py
+  -----------------------------------------------------------------------
+  Variable                            Purpose
+  ----------------------------------- -----------------------------------
+  `DATABASE_URL`                      PostgreSQL connection string.
 
-The embedding pipeline uses:
-sentence-transformers/all-MiniLM-L6-v2
+  `TMDB_API_TOKEN`                    Authenticates requests to TMDB.
 
-and stores 384-dimensional vectors in PostgreSQL.
-🔄 Movie Data Import
-CineScope includes movie import functionality for retrieving movie information from TMDB and storing it locally.
-The importer handles:
-- Movie metadata
-- Genres
-- Cast
-- Directors
-- Existing movie detection
-- Missing metadata repair
-This reduces unnecessary external API calls once information already exists locally.
-🧪 Production Readiness Checks
-The project has been tested for:
-Backend
-- FastAPI startup
-- API documentation
-- Authentication
-- Database connectivity
-- PostgreSQL schema
-- Alembic migrations
-- pgvector extension
-- Semantic search
-- Hybrid search
-- Recommendation APIs
-- Analytics APIs
-- Knowledge graph API
-- AI Analyst API
-Frontend
-- React production build
-- Routing
-- Authentication flow
-- Movie discovery
-- Search
-- Movie details
-- Watchlist
-- Ratings
-- Analytics
-- Knowledge graph
-- AI Analyst
-- Responsive UI
-Production build:
+  `JWT_SECRET_KEY`                    Signs and verifies authentication
+                                      tokens. Use a long, random secret.
+
+  `VITE_API_BASE_URL`                 Frontend API base URL; defaults to
+                                      the local API address in the API
+                                      client.
+
+  `CINESCOPE_ENV_FILE`                Selects the environment file loaded
+                                      by the backend configuration, if
+                                      configured.
+  -----------------------------------------------------------------------
+
+Check `.env.example` and the current source code for any additional
+variables required by your version.
+
+**Security reminder:** Variables prefixed with `VITE_` are included in
+browser-accessible frontend code. Never put secrets in them.
+
+## 🧪 Quality Checks
+
+**Frontend production build**
+
+``` bash
+cd frontend
 npm run build
+```
 
-🔒 Security
-Sensitive configuration is kept outside the repository.
-Ignored files include:
-.env
-backend/.env
-venv/
-node_modules/
-dist/
-__pycache__/
+**Backend tests** (if the test suite is present)
 
-The repository contains:
-.env.example
+``` bash
+cd backend
+pytest
+```
 
-with placeholder configuration values.
-Never commit:
-- API tokens
-- Database passwords
-- JWT secrets
-- Personal credentials
-📌 API Overview
-Some of the major API areas include:
-/api/auth
-/api/movies
-/api/movies/hybrid-search
-/api/movies/semantic-search
-/api/watchlist
-/api/movie-interactions
-/api/recommendations
-/api/analytics
-/api/graph
-/api/analyst
+**Migration checks**
 
-FastAPI's interactive documentation provides the complete API specification.
+``` bash
+cd backend
+alembic heads
+alembic check
+```
+
+Run commands from the relevant project directory and activate the
+backend virtual environment when needed. A successful frontend build
+does not, by itself, prove that every API integration or cloud
+deployment works.
+
+## 🛡️ Security Notes
+
+-   Never commit credentials or real `.env` files.
+-   Use a unique, strong `JWT_SECRET_KEY` outside local development.
+-   Restrict CORS to intended frontend origins in production.
+-   Use HTTPS for public deployments.
+-   Validate and authorize user-specific API operations on the backend.
+-   Back up important data and avoid destructive migrations.
+-   Treat AI-generated output as potentially imperfect.
+
+## 🗺️ Roadmap
+
+-   [ ] Complete public deployment of the frontend, backend, and
+    database.
+-   [ ] Add a public demo account or guided demo mode without exposing
+    personal data.
+-   [ ] Publish a polished screenshot gallery and short demo video.
+-   [ ] Add automated API and end-to-end tests to CI.
+-   [ ] Improve low-memory inference and gracefully handle an
+    unavailable model service.
+-   [ ] Add detailed API endpoint and data-model documentation.
+
+## 🙌 Credits and Attribution
+
+-   **Movie data and artwork:** [The Movie Database
+    (TMDB)](https://www.themoviedb.org/). This product uses the TMDB API
+    but is not endorsed or certified by TMDB. Retain required
+    attribution and follow TMDB API terms.
+-   **Semantic embeddings:** [Sentence
+    Transformers](https://www.sbert.net/).
+-   **Vector similarity storage:**
+    [pgvector](https://github.com/pgvector/pgvector).
+-   **Local language-model runtime:** [Ollama](https://ollama.com/).
+-   **Frameworks:** [React](https://react.dev/),
+    [Vite](https://vite.dev/), and
+    [FastAPI](https://fastapi.tiangolo.com/).
+
+Posters, backdrops, and other third-party media remain subject to their
+respective rights and terms.
+
+## 👨‍💻 Author
+
+**Yash Patil**\
+Computer Science & Engineering student interested in full-stack
+development, intelligent systems, and practical machine learning.
+
+-   GitHub: [@YashPatil1120](https://github.com/YashPatil1120)
+-   Project repository:
+    [CineScope](https://github.com/YashPatil1120/CineScope)
+
+------------------------------------------------------------------------
+
+::: {align="center"}
+**Built with curiosity, code, and a love for movies. 🍿**
+
+If you find the project interesting, consider giving the repository a
+⭐.
+:::
